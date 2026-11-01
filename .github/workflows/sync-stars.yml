@@ -1,0 +1,78 @@
+name: Sync GitHub Stars
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Optional owner/repo to mark or requeue; leave empty to sync only'
+        required: false
+        type: string
+      analysis_status:
+        description: 'Status applied only when repository is provided'
+        required: true
+        default: done
+        type: choice
+        options:
+          - done
+          - pending
+          - ignored
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/sync-stars.yml'
+      - 'star-sync/sync_stars.py'
+      - 'star-sync/test_sync_stars.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: awesome-star-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.repository == 'jiaerdangjia/Awesome' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the default branch
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: master
+          fetch-depth: 1
+
+      - name: Test only this feature on code changes or manual runs
+        if: github.event_name != 'schedule'
+        run: python3 -m unittest discover -s star-sync -p 'test_sync_stars.py' -v
+
+      - name: Sync public Stars and generate queue
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          STATUS_REPOSITORY: ${{ inputs.repository }}
+          ANALYSIS_STATUS: ${{ inputs.analysis_status }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          args=()
+          if [[ -n "$STATUS_REPOSITORY" ]]; then
+            args+=(--set-status "$STATUS_REPOSITORY" "$ANALYSIS_STATUS")
+          fi
+          python3 star-sync/sync_stars.py "${args[@]}"
+
+      - name: Commit only changed sync outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -- star-sync/data/stars.json star-sync/data/pending.json star-sync/PENDING.md
+          if git diff --cached --quiet; then
+            echo 'No changes; no commit needed.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore(stars): sync public bookmarks and analysis queue'
+          # Never force-push/rebase generated state over a concurrent human edit.
+          git push origin HEAD:master
