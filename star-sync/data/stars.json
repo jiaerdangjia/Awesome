@@ -1,6 +1,6 @@
 {
   "initialized_at": "2026-11-01T07:58:47Z",
-  "last_changed_at": "2026-11-01T07:58:47Z",
+  "last_changed_at": "2026-11-04T09:21:31Z",
   "repositories": {
     "1006251566": {
       "analysis_status": "baseline",
@@ -1889,7 +1889,7 @@
     "798201435": {
       "analysis_status": "baseline",
       "archived": false,
-      "description": "Open-source web crawler and scraper for LLMs and AI agents: any website into clean, LLM-ready Markdown. Run it yourself, or use Crawl4AI Cloud with one key. Join our Discord https://discord.gg/VuxzM8mtf",
+      "description": "Official Crawl4AI Cloud: a hosted web scraping, extraction, and search API for AI agents. Free API key, 1,000 credits a month, no card. Fully open source: this repo is the Apache-2.0 crawler that powers it, and you can self-host it.",
       "first_seen_at": "2026-11-01T07:58:47Z",
       "full_name": "unclecode/crawl4ai",
       "language": "Python",
