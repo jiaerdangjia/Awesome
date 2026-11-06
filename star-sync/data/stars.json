@@ -1,6 +1,6 @@
 {
   "initialized_at": "2026-11-01T07:58:47Z",
-  "last_changed_at": "2026-11-04T09:21:31Z",
+  "last_changed_at": "2026-11-06T10:58:36Z",
   "repositories": {
     "1006251566": {
       "analysis_status": "baseline",
@@ -1289,7 +1289,7 @@
     "643445235": {
       "analysis_status": "baseline",
       "archived": false,
-      "description": "🤯 LobeHub is your Chief Agent Operator, organizing your agents into 7×24 operations by hiring, scheduling, and reporting on your entire AI team.",
+      "description": "🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every week.",
       "first_seen_at": "2026-11-01T07:58:47Z",
       "full_name": "lobehub/lobehub",
       "language": "TypeScript",
