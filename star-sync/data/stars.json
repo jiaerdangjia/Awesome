@@ -1,6 +1,6 @@
 {
   "initialized_at": "2026-11-01T07:58:47Z",
-  "last_changed_at": "2026-11-06T10:58:36Z",
+  "last_changed_at": "2026-11-06T23:12:52Z",
   "repositories": {
     "1006251566": {
       "analysis_status": "baseline",
@@ -1052,7 +1052,7 @@
       "description": "《Hello 算法》：动画图解、一键运行的数据结构与算法教程。支持简中、繁中、English、日本語，提供 Python, Java, C++, C, C#, JS, Go, Swift, Rust, Ruby, Kotlin, TS, Dart 等代码实现",
       "first_seen_at": "2026-11-01T07:58:47Z",
       "full_name": "krahets/hello-algo",
-      "language": "Swift",
+      "language": "Python",
       "notes": "",
       "repo_id": 561730219,
       "starred_at": "2024-07-12T10:28:08Z",
